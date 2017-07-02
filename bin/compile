@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+set -e
+
+build_dir=$1
+cache_dir=$2
+
+fetch_caddy() {
+    local caddy_url="https://caddyserver.com/download/linux/amd64"
+    local dest_path="$cache_dir/caddy"
+
+    if [ -f "$dest_path" ]; then
+        echo -n "cat $dest_path"
+    else
+        echo -n "curl -L $caddy_url"
+    fi
+}
+
+mkdir -p $build_dir/bin
+$(fetch_caddy) | tar xzC $build_dir/bin
+caddy_version=$($build_dir/bin/caddy -version)
+echo "-----> Installed ${caddy_version} to /app/bin"
+
+exit 0
