@@ -7,7 +7,7 @@ build_dir=$1
 cache_dir=$2
 
 fetch_caddy() {
-    local caddy_url="https://caddyserver.com/download/linux/amd64"
+    local caddy_url="https://caddyserver.com/download/linux/amd64?plugins=http.cache,http.cors,http.git,http.jwt,http.minify,http.nobots,http.ratelimit,http.realip"
     local dest_path="$cache_dir/caddy"
 
     if [ -f "$dest_path" ]; then
